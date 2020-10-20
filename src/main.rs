@@ -605,7 +605,86 @@ fn run() -> Result<()> {
         return Ok(());
     }
 
-    let mut cmd = Opt::from_args();
+    let mut cmd = if let Ok(addr1) = std::env::var("JET_URL") {
+        Opt {
+            addr1: Some(addr1),
+            addr2: Default::default(),
+            unidirectional: Default::default(),
+            unidirectional_reverse: Default::default(),
+            exit_on_eof: Default::default(),
+            websocket_text_mode: Default::default(),
+            websocket_binary_mode: true,
+            oneshot: Default::default(),
+            help: Default::default(),
+            dumpspec: Default::default(),
+            websocket_protocol: Default::default(),
+            websocket_reply_protocol: Default::default(),
+            udp_oneshot_mode: Default::default(),
+            udp_broadcast: Default::default(),
+            udp_multicast_loop: Default::default(),
+            udp_ttl: Default::default(),
+            udp_join_multicast_addr: Vec::default(),
+            udp_join_multicast_iface_v4: Vec::default(),
+            udp_join_multicast_iface_v6: Vec::default(),
+            udp_reuseaddr: Default::default(),
+            unlink_unix_socket: Default::default(),
+            exec_args: Default::default(),
+            ws_c_uri: String::from("ws://0.0.0.0/"),
+            linemode_strip_newlines: Default::default(),
+            no_auto_linemode: Default::default(),
+            origin: Default::default(),
+            custom_headers: Default::default(),
+            custom_reply_headers: Default::default(),
+            headers_to_env: Default::default(),
+            websocket_version: Default::default(),
+            websocket_dont_close: Default::default(),
+            one_message: Default::default(),
+            server_mode: Default::default(),
+            no_lints: Default::default(),
+            buffer_size: 65536,
+            verbosity: Default::default(),
+            quiet: Default::default(),
+            broadcast_queue_len: 16,
+            strict_mode: Default::default(),
+            linemode_zero_terminated: Default::default(),
+            restrict_uri: Default::default(),
+            serve_static_files: Default::default(),
+            exec_set_env: Default::default(),
+            reuser_send_zero_msg_on_disconnect: Default::default(),
+            process_zero_sighup: Default::default(),
+            process_exit_sighup: Default::default(),
+            jsonrpc: Default::default(),
+            socks_destination: Default::default(),
+            auto_socks5: Default::default(),
+            socks5_bind_script: Default::default(),
+            tls_domain: Default::default(),
+            max_parallel_conns: Default::default(),
+            ws_ping_interval: Default::default(),
+            ws_ping_timeout: Default::default(),
+            just_generate_key: Default::default(),
+            just_generate_accept: Default::default(),
+            request_uri: Default::default(),
+            request_method: Default::default(),
+            request_headers: Default::default(),
+            no_exit_on_zeromsg: Default::default(),
+            websocket_ignore_zeromsg: Default::default(),
+            max_messages: Default::default(),
+            max_messages_rev: Default::default(),
+            autoreconnect_delay_millis: 20,
+            ws_text_prefix: Default::default(),
+            ws_binary_prefix: Default::default(),
+            ws_binary_base64: Default::default(),
+            ws_text_base64: Default::default(),
+            #[cfg(feature = "ssl")]
+            pkcs12_der: Default::default(),
+            #[cfg(feature = "ssl")]
+            pkcs12_passwd: Default::default(),
+            #[cfg(feature = "ssl")]
+            tls_insecure: Default::default(),
+        }
+    } else {
+        Opt::from_args()
+    };
 
     let mut quiet = cmd.quiet;
 
